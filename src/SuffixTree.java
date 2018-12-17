@@ -4,7 +4,7 @@ Majac dany zbior Z złozony z k lancuchow, chcemy sprawdzic ile z tych lancuchow
 innego lanucha ze zbioru Z.
 
 Zakladajac ze suma dlugosci wszystkich lanuchow wynosi m, zaprojektuj i zaimplementuj algorytm rozwiazaujacy
-to zadanie w czasie O(m0
+to zadanie w czasie O(m)
 */
 
 //Definicje:
@@ -29,6 +29,9 @@ public class SuffixTree {
         Node suffixLink;
 
         Map<Character, Node> children;  //zamiast Node[] children
+
+        //Sluzy do wyznaczenia liczby osiagalnych wierzcholkow reprezentujacych sufikssy dla kazdego wezla
+        // drzewa sufiksowego
         int numberOfLeaves;             //zliczamy liscie
 
         Node(int begin, int end, int depth, int noleaf, Node parent) {
@@ -45,7 +48,6 @@ public class SuffixTree {
 
     private static Node buildSuffixTree(CharSequence s) {
 
-        //return_s(s.toString());
         SuffixTree.s = s;
 
         int n = s.length();
@@ -63,7 +65,7 @@ public class SuffixTree {
             //ustaw ostatni stworzony węzeł wewnętrzny na null przed rozpoczęciem każdej fazy.
             Node last = null;
 
-            //tail - tyle sufiksów musi zostać utworzone.
+
             while (tail >= 0) {
                 Node ch = node.children.get(ALPHABET.charAt(a[i - tail]));
                 while (ch != null && tail >= ch.end - ch.begin) {
